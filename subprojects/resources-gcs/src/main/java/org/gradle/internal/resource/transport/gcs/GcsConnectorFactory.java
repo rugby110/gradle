@@ -32,7 +32,11 @@ import java.util.Set;
 public class GcsConnectorFactory implements ResourceConnectorFactory {
     @Override
     public Set<String> getSupportedProtocols() {
+<<<<<<< HEAD
         return Collections.singleton("gcs");
+=======
+        return Collections.singleton("s3");
+>>>>>>> a1aedec... Add support for gcs backed artifact repository
     }
 
     @Override
