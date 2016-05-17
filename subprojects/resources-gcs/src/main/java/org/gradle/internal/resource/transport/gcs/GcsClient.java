@@ -44,7 +44,11 @@ public class GcsClient {
     private static final String BUCKET_NAME = "snapengine-jfraud";
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final Storage googleGcsClient;
+=======
+    private Storage googleGcsClient;
+>>>>>>> a1aedec... Add support for gcs backed artifact repository
 =======
     private Storage googleGcsClient;
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
