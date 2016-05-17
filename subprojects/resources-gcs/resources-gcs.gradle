@@ -1,0 +1,16 @@
+dependencies {
+    compile project(':resources')
+    compile project(':resourcesHttp')
+    compile project(':core')
+    compile libraries.guava
+//    compile libraries.awsS3
+    compile libraries.commons_lang
+    compile 'com.google.apis:google-api-services-storage:v1-rev72-1.22.0'
+    testCompile libraries.groovy
+}
+
+useTestFixtures(project: ":dependencyManagement")
+useTestFixtures(project: ":ivy")
+useTestFixtures(project: ":maven")
+useClassycle()
+strictCompile()
