@@ -46,6 +46,7 @@ public class GcsClient {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     private final Storage googleGcsClient;
 =======
     private Storage googleGcsClient;
@@ -56,6 +57,9 @@ public class GcsClient {
 =======
     private Storage googleGcsClient;
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
+=======
+    private final Storage googleGcsClient;
+>>>>>>> fa4d1c8... Fix test failures
 
     public GcsClient(Storage googleGcsClient) {
         this.googleGcsClient = googleGcsClient;

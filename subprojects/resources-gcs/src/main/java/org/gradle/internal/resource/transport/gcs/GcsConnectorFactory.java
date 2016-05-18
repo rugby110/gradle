@@ -35,6 +35,7 @@ public class GcsConnectorFactory implements ResourceConnectorFactory {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         return Collections.singleton("gcs");
 =======
         return Collections.singleton("s3");
@@ -45,6 +46,9 @@ public class GcsConnectorFactory implements ResourceConnectorFactory {
 =======
         return Collections.singleton("s3");
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
+=======
+        return Collections.singleton("gcs");
+>>>>>>> fa4d1c8... Fix test failures
     }
 
     @Override

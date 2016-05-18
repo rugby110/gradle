@@ -17,6 +17,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 package org.gradle.integtests.resource.gcs.fixtures.stub
 =======
 package org.gradle.integtests.resource.s3.fixtures.stub
@@ -27,6 +28,9 @@ package org.gradle.integtests.resource.s3.fixtures.stub
 =======
 package org.gradle.integtests.resource.s3.fixtures.stub
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
+=======
+package org.gradle.integtests.resource.gcs.fixtures.stub
+>>>>>>> fa4d1c8... Fix test failures
 
 import groovy.transform.ToString
 
