@@ -32,7 +32,7 @@ import java.util.Set;
 public class GcsConnectorFactory implements ResourceConnectorFactory {
     @Override
     public Set<String> getSupportedProtocols() {
-        return Collections.singleton("s3");
+        return Collections.singleton("gcs");
     }
 
     @Override

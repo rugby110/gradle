@@ -17,8 +17,8 @@
 package org.gradle.integtests.resource.gcs.fixtures
 
 import groovy.xml.StreamingMarkupBuilder
-import org.gradle.integtests.resource.s3.fixtures.stub.HttpStub
-import org.gradle.integtests.resource.s3.fixtures.stub.StubRequest
+import org.gradle.integtests.resource.gcs.fixtures.stub.HttpStub
+import org.gradle.integtests.resource.gcs.fixtures.stub.StubRequest
 import org.gradle.test.fixtures.file.TestDirectoryProvider
 import org.gradle.test.fixtures.server.RepositoryServer
 import org.gradle.test.fixtures.server.http.HttpServer

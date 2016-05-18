@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.gradle.integtests.resource.s3.fixtures.stub
+package org.gradle.integtests.resource.gcs.fixtures.stub
 
 import groovy.transform.ToString
 

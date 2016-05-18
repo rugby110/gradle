@@ -43,7 +43,7 @@ public class GcsClient {
     private static final Pattern FILENAME_PATTERN = Pattern.compile("[^\\/]+\\.*$");
     private static final String BUCKET_NAME = "snapengine-jfraud";
 
-    private Storage googleGcsClient;
+    private final Storage googleGcsClient;
 
     public GcsClient(Storage googleGcsClient) {
         this.googleGcsClient = googleGcsClient;
