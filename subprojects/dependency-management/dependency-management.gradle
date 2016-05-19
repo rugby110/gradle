@@ -28,7 +28,6 @@ dependencies {
 
     integTestRuntime project(":ivy")
     integTestRuntime project(":maven")
-    integTestRuntime project(":resourcesGcs")
     integTestRuntime project(":resourcesHttp")
     integTestRuntime project(":resourcesS3")
     integTestRuntime project(":resourcesSftp")
