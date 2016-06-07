@@ -17,13 +17,8 @@
 package org.gradle.integtests.resource.gcs.fixtures
 
 import groovy.xml.StreamingMarkupBuilder
-<<<<<<< HEAD
 import org.gradle.integtests.resource.gcs.fixtures.stub.HttpStub
 import org.gradle.integtests.resource.gcs.fixtures.stub.StubRequest
-=======
-import org.gradle.integtests.resource.s3.fixtures.stub.HttpStub
-import org.gradle.integtests.resource.s3.fixtures.stub.StubRequest
->>>>>>> a1aedec... Add support for gcs backed artifact repository
 import org.gradle.test.fixtures.file.TestDirectoryProvider
 import org.gradle.test.fixtures.server.RepositoryServer
 import org.gradle.test.fixtures.server.http.HttpServer

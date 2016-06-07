@@ -43,11 +43,7 @@ public class GcsClient {
     private static final Pattern FILENAME_PATTERN = Pattern.compile("[^\\/]+\\.*$");
     private static final String BUCKET_NAME = "snapengine-jfraud";
 
-<<<<<<< HEAD
     private final Storage googleGcsClient;
-=======
-    private Storage googleGcsClient;
->>>>>>> a1aedec... Add support for gcs backed artifact repository
 
     public GcsClient(Storage googleGcsClient) {
         this.googleGcsClient = googleGcsClient;
