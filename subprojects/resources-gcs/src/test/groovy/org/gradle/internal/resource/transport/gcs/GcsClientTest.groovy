@@ -37,7 +37,6 @@ class GcsClientTest extends Specification {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
             assert putObjectRequest.getBucket() == client.BUCKET_NAME
             assert putObjectRequest.getName() == 'localhost/maven/snapshot/myFile.txt'
 =======
@@ -52,10 +51,6 @@ class GcsClientTest extends Specification {
             assert putObjectRequest.getBucket() == 'localhost'
             assert putObjectRequest.getKey() == 'maven/snapshot/myFile.txt'
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
-=======
-            assert putObjectRequest.getBucket() == client.BUCKET_NAME
-            assert putObjectRequest.getName() == 'localhost/maven/snapshot/myFile.txt'
->>>>>>> fa4d1c8... Fix test failures
             assert putObjectRequest.getHttpContent().length == 12
         }
     }
