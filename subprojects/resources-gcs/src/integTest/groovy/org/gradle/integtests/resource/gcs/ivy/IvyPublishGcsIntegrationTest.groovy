@@ -19,6 +19,7 @@ package org.gradle.integtests.resource.gcs.ivy
 import org.gradle.api.publish.ivy.AbstractIvyPublishIntegTest
 import org.gradle.integtests.resource.gcs.fixtures.GcsServer
 import org.junit.Rule
+import spock.lang.Ignore
 
 class IvyPublishGcsIntegrationTest extends AbstractIvyPublishIntegTest {
     @Rule
@@ -28,6 +29,7 @@ class IvyPublishGcsIntegrationTest extends AbstractIvyPublishIntegTest {
         executer.withArgument("-Dorg.gradle.gcs.endpoint=${server.getUri()}")
     }
 
+    @Ignore
     def "can publish to an Gcs Ivy repository"() {
         given:
         def ivyRepo = server.remoteIvyRepo

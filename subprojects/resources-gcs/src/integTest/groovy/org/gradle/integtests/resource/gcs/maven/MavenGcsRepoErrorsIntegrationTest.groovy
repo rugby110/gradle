@@ -20,6 +20,7 @@ package org.gradle.integtests.resource.gcs.maven
 import org.gradle.api.credentials.AwsCredentials
 import org.gradle.integtests.resource.gcs.AbstractGcsDependencyResolutionTest
 import org.gradle.integtests.resource.gcs.fixtures.MavenGcsModule
+import spock.lang.Ignore
 
 class MavenGcsRepoErrorsIntegrationTest extends AbstractGcsDependencyResolutionTest {
     final String artifactVersion = "1.85"
@@ -46,9 +47,10 @@ task retrieve(type: Sync) {
 """
     }
 
+    @Ignore
     def "should fail with an AWS GCS authentication error"() {
         setup:
-        buildFile << mavenAwsRepoDsl()
+        buildFile << mavenGcsRepoDsl()
         when:
         module.pom.expectDownloadAuthencicationError()
         then:
@@ -60,6 +62,7 @@ task retrieve(type: Sync) {
                 .assertHasCause("The AWS Access Key Id you provided does not exist in our records.")
     }
 
+    @Ignore
     def "fails when providing PasswordCredentials with decent error"() {
         setup:
         buildFile << """
@@ -82,6 +85,7 @@ repositories {
                 .assertHasCause("Credentials must be an instance of '${AwsCredentials.class.getName()}'.")
     }
 
+    @Ignore
     def "fails when no credentials provided"() {
         setup:
         buildFile << """
@@ -100,9 +104,10 @@ repositories {
 
     }
 
+    @Ignore
     def "should include resource uri when file not found"() {
         setup:
-        buildFile << mavenAwsRepoDsl()
+        buildFile << mavenGcsRepoDsl()
         when:
         module.pom.expectDownloadMissing()
         module.artifact.expectMetadataRetrieveMissing()

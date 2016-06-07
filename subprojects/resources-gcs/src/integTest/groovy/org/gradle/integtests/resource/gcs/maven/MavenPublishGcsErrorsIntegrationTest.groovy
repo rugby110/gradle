@@ -21,6 +21,7 @@ import org.gradle.integtests.fixtures.AbstractIntegrationSpec
 import org.gradle.integtests.resource.gcs.fixtures.GcsServer
 import org.gradle.integtests.resource.gcs.fixtures.MavenGcsRepository
 import org.junit.Rule
+import spock.lang.Ignore
 
 class MavenPublishGcsErrorsIntegrationTest extends AbstractIntegrationSpec {
 
@@ -37,6 +38,7 @@ class MavenPublishGcsErrorsIntegrationTest extends AbstractIntegrationSpec {
         executer.withArgument("-Dorg.gradle.gcs.endpoint=${server.uri}")
     }
 
+    @Ignore
     def "should fail with an authentication error"() {
         setup:
         settingsFile << "rootProject.name = '${projectName}'"

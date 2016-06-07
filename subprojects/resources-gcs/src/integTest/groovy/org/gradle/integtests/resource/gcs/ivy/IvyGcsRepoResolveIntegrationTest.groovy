@@ -21,7 +21,9 @@ import org.gradle.integtests.resolve.ivy.AbstractIvyRemoteRepoResolveIntegration
 import org.gradle.integtests.resource.gcs.fixtures.GcsServer
 import org.gradle.test.fixtures.server.RepositoryServer
 import org.junit.Rule
+import spock.lang.Ignore
 
+@Ignore
 class IvyGcsRepoResolveIntegrationTest extends AbstractIvyRemoteRepoResolveIntegrationTest {
 
     @Rule
@@ -38,6 +40,7 @@ class IvyGcsRepoResolveIntegrationTest extends AbstractIvyRemoteRepoResolveInteg
         result = executer.withTasks(*tasks).run()
     }
 
+    @Ignore
     def "cannot add invalid authentication types for s3 repo"() {
         given:
         def remoteIvyRepo = server.getRemoteIvyRepo()

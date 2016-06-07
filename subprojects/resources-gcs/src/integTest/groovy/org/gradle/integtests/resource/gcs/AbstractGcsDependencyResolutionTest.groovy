@@ -43,7 +43,7 @@ abstract class AbstractGcsDependencyResolutionTest extends AbstractDependencyRes
         new MavenGcsRepository(server, file(getTestDirectory()), getRepositoryPath(), getBucket())
     }
 
-    IvyGcsRepository getIvyS3Repo() {
+    IvyGcsRepository getIvyGcsRepo() {
         new IvyGcsRepository(server, file(getTestDirectory()), getRepositoryPath(), getBucket())
     }
 
@@ -53,15 +53,11 @@ abstract class AbstractGcsDependencyResolutionTest extends AbstractDependencyRes
 //        }
 //    }
 
-    String mavenAwsRepoDsl() {
+    String mavenGcsRepoDsl() {
         """
         repositories {
             maven {
                 url "${mavenGcsRepo.uri}"
-                credentials(AwsCredentials) {
-                    accessKey "someKey"
-                    secretKey "someSecret"
-                }
             }
         }
         """

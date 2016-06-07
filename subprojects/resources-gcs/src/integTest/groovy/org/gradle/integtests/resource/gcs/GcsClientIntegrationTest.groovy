@@ -37,14 +37,13 @@ class GcsClientIntegrationTest extends Specification {
     final TestNameTestDirectoryProvider temporaryFolder = new TestNameTestDirectoryProvider()
 
     @Shared
-    DefaultAwsCredentials awsCredentials = new DefaultAwsCredentials()
+    GoogleCredential gcsCredentials = new GoogleCredential()
 
     @Rule
     public final GcsServer server = new GcsServer(temporaryFolder)
 
     def setup() {
-        awsCredentials.setAccessKey(accessKey)
-        awsCredentials.setSecretKey(secret)
+        gcsCredentials.refreshToken();
     }
 
 //    @Unroll
@@ -103,7 +102,7 @@ class GcsClientIntegrationTest extends Specification {
 //
 //        where:
 //        authenticationImpl | authenticationType
-//        awsCredentials     | "authenticated"
+//        gcsCredentials     | "authenticated"
 //        null               | "anonymous"
 //    }
 

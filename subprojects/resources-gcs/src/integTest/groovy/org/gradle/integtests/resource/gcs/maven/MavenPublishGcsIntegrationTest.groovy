@@ -20,6 +20,7 @@ import org.gradle.integtests.fixtures.publish.maven.AbstractMavenPublishIntegTes
 import org.gradle.integtests.resource.gcs.fixtures.GcsServer
 import org.gradle.integtests.resource.gcs.fixtures.MavenGcsRepository
 import org.junit.Rule
+import spock.lang.Ignore
 
 class MavenPublishGcsIntegrationTest extends AbstractMavenPublishIntegTest {
     @Rule
@@ -29,6 +30,7 @@ class MavenPublishGcsIntegrationTest extends AbstractMavenPublishIntegTest {
         executer.withArgument("-Dorg.gradle.Gcs.endpoint=${server.getUri()}")
     }
 
+    @Ignore
     def "can publish to a Gcs Maven repository"() {
         given:
         def mavenRepo = new MavenGcsRepository(server, file("repo"), "/maven", "testGcsBucket")

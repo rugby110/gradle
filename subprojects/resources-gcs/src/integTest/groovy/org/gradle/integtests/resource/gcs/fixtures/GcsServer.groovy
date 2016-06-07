@@ -16,6 +16,7 @@
 
 package org.gradle.integtests.resource.gcs.fixtures
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import groovy.xml.StreamingMarkupBuilder
 import org.gradle.integtests.resource.gcs.fixtures.stub.HttpStub
 import org.gradle.integtests.resource.gcs.fixtures.stub.StubRequest
@@ -35,17 +36,15 @@ import java.security.MessageDigest
 
 class GcsServer extends HttpServer implements RepositoryServer {
 
-    public static final String BUCKET_NAME = "tests3bucket"
+    public static final String BUCKET_NAME = "testgcsbucket"
     private static final DateTimeZone GMT = new FixedDateTimeZone("GMT", "GMT", 0, 0)
     protected static final DateTimeFormatter RCF_822_DATE_FORMAT = DateTimeFormat.forPattern("EEE, dd MMM yyyy HH:mm:ss z")
             .withLocale(Locale.US)
             .withZone(GMT);
 
     public static final String ETAG = 'd41d8cd98f00b204e9800998ecf8427e'
-    public static final String X_AMZ_REQUEST_ID = '0A398F9A1BAD4027'
-    public static final String X_AMZ_ID_2 = 'nwUZ/n/F2/ZFRTZhtzjYe7mcXkxCaRjfrJSWirV50lN7HuvhF60JpphwoiX/sMnh'
     public static final String DATE_HEADER = 'Mon, 29 Sep 2014 11:04:27 GMT'
-    public static final String SERVER_AMAZON_S3 = 'AmazonS3'
+    public static final String SERVER_GCS = 'GCS'
 
     TestDirectoryProvider testDirectoryProvider
 
@@ -100,11 +99,7 @@ class GcsServer extends HttpServer implements RepositoryServer {
 
     @Override
     String getValidCredentials() {
-        return """
-        credentials(AwsCredentials) {
-            accessKey "someKey"
-            secretKey "someSecret"
-        }"""
+        return new GoogleCredential().getRefreshToken();
     }
 
     def stubPutFile(File file, String url) {
@@ -124,11 +119,9 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 200
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
                         "ETag"            : { calculateEtag(file) },
-                        'Server'          : SERVER_AMAZON_S3
+                        'Server'          : SERVER_GCS
                 ]
             }
         }
@@ -148,11 +141,9 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 200
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
                         'ETag'            : { calculateEtag(file) },
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Accept-Ranges'   : 'bytes',
                         'Content-Type'    : 'application/octet-stream',
                         'Content-Length'  : "0",
@@ -184,10 +175,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = statusCode
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
             }
@@ -208,11 +197,9 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 200
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
                         'ETag'            : { calculateEtag(file) },
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Accept-Ranges'   : 'bytes',
                         'Content-Type'    : 'application/octet-stream',
                         'Content-Length'  : { file.length()},
@@ -294,10 +281,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 200
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
                 body = { xml.toString() }
@@ -329,10 +314,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 403
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
                 body = { xml.toString() }
@@ -364,10 +347,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 403
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
                 body = { xml.toString() }
@@ -399,10 +380,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 404
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
                 body = { xml.toString() }
@@ -433,10 +412,8 @@ class GcsServer extends HttpServer implements RepositoryServer {
             response {
                 status = 500
                 headers = [
-                        'x-amz-id-2'      : X_AMZ_ID_2,
-                        'x-amz-request-id': X_AMZ_REQUEST_ID,
                         'Date'            : DATE_HEADER,
-                        'Server'          : SERVER_AMAZON_S3,
+                        'Server'          : SERVER_GCS,
                         'Content-Type'    : 'application/xml',
                 ]
                 body = { xml.toString() }

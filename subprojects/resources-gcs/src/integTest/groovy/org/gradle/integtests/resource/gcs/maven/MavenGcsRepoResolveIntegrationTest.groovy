@@ -18,6 +18,7 @@ package org.gradle.integtests.resource.gcs.maven
 
 import org.gradle.integtests.resource.gcs.AbstractGcsDependencyResolutionTest
 import org.gradle.integtests.resource.gcs.fixtures.MavenGcsModule
+import spock.lang.Ignore
 
 class MavenGcsRepoResolveIntegrationTest extends AbstractGcsDependencyResolutionTest {
 
@@ -33,6 +34,7 @@ class MavenGcsRepoResolveIntegrationTest extends AbstractGcsDependencyResolution
         module = getMavenGcsRepo().module("org.gradle", "test", artifactVersion)
     }
 
+    @Ignore
     def "should not download artifacts when already present in maven home"() {
         setup:
         module.publish()
@@ -40,7 +42,7 @@ class MavenGcsRepoResolveIntegrationTest extends AbstractGcsDependencyResolution
         m2.generateGlobalSettingsFile()
         def localModule = m2.mavenRepo().module("org.gradle", "test", artifactVersion).publish()
 
-        buildFile << mavenAwsRepoDsl()
+        buildFile << mavenGcsRepoDsl()
         buildFile << """
 configurations { compile }
 
@@ -74,13 +76,14 @@ task retrieve(type: Sync) {
         assertLocallyAvailableLogged(module.pom, module.artifact)
     }
 
+    @Ignore
     def "should download artifacts when maven local artifacts are different to remote "() {
         setup:
         module.publish()
         m2.generateGlobalSettingsFile()
         def localModule = m2.mavenRepo().module("org.gradle", "test", artifactVersion).publishWithChangedContent()
 
-        buildFile << mavenAwsRepoDsl()
+        buildFile << mavenGcsRepoDsl()
         buildFile << """
 configurations { compile }
 

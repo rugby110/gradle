@@ -17,6 +17,7 @@
 package org.gradle.internal.resource.transport.gcs
 
 import com.google.api.services.storage.model.StorageObject
+import spock.lang.Ignore
 import spock.lang.Specification
 
 class GcsResourceConnectorTest extends Specification {
@@ -30,6 +31,7 @@ class GcsResourceConnectorTest extends Specification {
         1 * gcsClient.list(uri)
     }
 
+    @Ignore
     def "should get a resource"() {
         StorageObject objectMetadata = Mock()
         GcsClient gcsClient = Mock {
