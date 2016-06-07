@@ -34,11 +34,7 @@ public class GcsConnectorFactory implements ResourceConnectorFactory {
     public Set<String> getSupportedProtocols() {
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
         return Collections.singleton("gcs");
-=======
-        return Collections.singleton("s3");
->>>>>>> a1aedec... Add support for gcs backed artifact repository
 =======
         return Collections.singleton("s3");
 >>>>>>> a1aedec... Add support for gcs backed artifact repository

@@ -45,11 +45,7 @@ public class GcsClient {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
-<<<<<<< HEAD
     private final Storage googleGcsClient;
-=======
-    private Storage googleGcsClient;
->>>>>>> a1aedec... Add support for gcs backed artifact repository
 =======
     private Storage googleGcsClient;
 >>>>>>> a1aedec... Add support for gcs backed artifact repository
