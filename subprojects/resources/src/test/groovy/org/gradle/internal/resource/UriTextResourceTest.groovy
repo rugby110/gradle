@@ -218,20 +218,6 @@ class UriTextResourceTest {
     }
 
     @Test
-    public void hasNoContentWhenUsingHttpUriAndFileDoesNotExist() {
-        Assume.assumeTrue(TestPrecondition.ONLINE.fulfilled) // when this test moves to spock, ignore this test instead of just passing.
-
-        UriTextResource resource = new UriTextResource('<display-name>', new URI("http://www.gradle.org/unknown.txt"));
-        assertFalse(resource.exists)
-        try {
-            resource.text
-            fail()
-        } catch (MissingResourceException e) {
-            assertThat(e.message, equalTo("Could not read <display-name> 'http://www.gradle.org/unknown.txt' as it does not exist." as String))
-        }
-    }
-
-    @Test
     public void usesFilePathToBuildDisplayNameWhenUsingFile() {
         UriTextResource resource = new UriTextResource("<file-type>", file);
         assertThat(resource.displayName, equalTo(String.format("<file-type> '%s'", file.absolutePath)));
