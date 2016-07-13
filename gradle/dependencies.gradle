@@ -171,9 +171,16 @@ libraries.awsS3 = [
         'com.amazonaws:aws-java-sdk-s3:1.9.19@jar',
         'com.amazonaws:aws-java-sdk-kms:1.9.19@jar',
         'com.amazonaws:aws-java-sdk-core:1.9.19@jar',
-        'com.fasterxml.jackson.core:jackson-core:2.3.2@jar',
-        'com.fasterxml.jackson.core:jackson-annotations:2.3.2@jar',
-        'com.fasterxml.jackson.core:jackson-databind:2.3.2@jar'
+        'com.fasterxml.jackson.core:jackson-core:2.7.3@jar',
+        'com.fasterxml.jackson.core:jackson-annotations:2.7.3@jar',
+        'com.fasterxml.jackson.core:jackson-databind:2.7.3@jar'
+] + libraries.commons_httpclient + libraries.joda
+
+libraries.gcs = [
+        'com.google.apis:google-api-services-storage:v1-rev78-1.22.0',
+        'com.fasterxml.jackson.core:jackson-core:2.7.3',
+        'com.fasterxml.jackson.core:jackson-annotations:2.7.3',
+        'com.fasterxml.jackson.core:jackson-databind:2.7.3'
 ] + libraries.commons_httpclient + libraries.joda
 
 allprojects {

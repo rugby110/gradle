@@ -3,9 +3,8 @@ dependencies {
     compile project(':resourcesHttp')
     compile project(':core')
     compile libraries.guava
-//    compile libraries.awsS3
+    compile libraries.gcs
     compile libraries.commons_lang
-    compile 'com.google.apis:google-api-services-storage:v1-rev72-1.22.0'
     testCompile libraries.groovy
 }
 
