@@ -1,0 +1,45 @@
+def snapchatRepoUrl = 'https://snapchat.artifactoryonline.com/snapchat/libs'
+
+allprojects {
+
+    buildscript {
+
+        // To avoid storing Artifactory authentication credentials in our Github repository,
+        // we use system properties on the CI server instead of a gradle.properties file
+        if (System.getenv('ARTIFACTORY_USERNAME')) {
+            ext.artifactoryUsername = System.getenv('ARTIFACTORY_USERNAME')
+            ext.artifactoryPassword = System.getenv('ARTIFACTORY_PASSWORD')
+        }
+
+        repositories {
+            maven {
+                url "gcs://maven-publish/releases"
+            }
+            mavenLocal()
+            maven {
+                url snapchatRepoUrl
+                credentials {
+                    username = artifactoryUsername
+                    password = artifactoryPassword
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            url "gcs://maven-publish/releases"
+        }
+        mavenLocal()
+        maven {
+            url snapchatRepoUrl
+            credentials {
+                username = artifactoryUsername
+                password = artifactoryPassword
+            }
+        }
+    }
+
+    apply plugin: 'maven'
+
+}

@@ -1,0 +1,45 @@
+// Configure basic properties that every subproject requires
+allprojects {
+
+  group 'com.snapchat'
+
+  // Configure a major version number, a minor version number is automatically added with each release
+  version '1.0'
+
+  // Enable support for artifactory, standard properties, test targets, version numbers, etc
+  apply plugin: 'snapengine-bootstrap'
+
+  // Enable support for managing your third-party versions
+  apply plugin: 'snapengine-versionset'
+
+}
+
+
+// Configure plugins
+buildscript {
+    dependencies {
+        // Enable bootstrap and versionset plugins
+        classpath 'com.snapchat:snapengine-gradle-bootstrap-plugin:1.0.2959'
+        classpath 'com.snapchat:snapengine-gradle-versionset-plugin:1.+'
+        // Enable artifactory
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.2.5'
+    }
+}
+
+
+// Enable support for IntelliJ
+apply plugin: 'idea'
+
+idea {
+
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+
+}

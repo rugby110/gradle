@@ -1,0 +1,19 @@
+apply plugin: 'snapengine'
+apply plugin: 'war'
+
+buildscript {
+    dependencies {
+        // Enable SnapEngine gradle commands
+        classpath 'com.snapchat:snapengine-gradle-plugin:1.+'
+    }
+}
+
+dependencies {
+    compile "com.snapchat:snapengine-servlet:1.+"
+
+    testCompile "com.snapchat:snapengine-testing:1.+"
+}
+
+artifacts {
+    archives war
+}
