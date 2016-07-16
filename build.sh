@@ -10,6 +10,7 @@ zip -r $DISTRIBUTION .
 
 # Build a project that consumes this artifact (from a local url)
 # to test before passing the build
-cd example
-./gradlew build
+#cd example
+#./gradlew build
+
 cd ..
