@@ -1,0 +1,22 @@
+allprojects {
+
+    buildscript {
+
+        repositories {
+            maven {
+                url "gcs://maven-publish/releases"
+            }
+            mavenLocal()
+        }
+    }
+
+    repositories {
+        maven {
+            url "gcs://maven-publish/releases"
+        }
+        mavenLocal()
+    }
+
+    apply plugin: 'maven'
+
+}

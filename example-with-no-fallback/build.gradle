@@ -6,12 +6,18 @@ allprojects {
   // Configure a major version number, a minor version number is automatically added with each release
   version '1.0'
 
+  // Enable support for artifactory, standard properties, test targets, version numbers, etc
+  apply plugin: 'snapengine-bootstrap'
+
 }
 
 
 // Configure plugins
 buildscript {
     dependencies {
+        // Enable bootstrap and versionset plugins
+        classpath 'com.snapchat:snapengine-gradle-bootstrap-plugin:1.+'
+        // Enable artifactory
         classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.2.5'
     }
 }

@@ -67,3 +67,11 @@ atlassian-ide-plugin.xml
 # ---------
 /incoming-distributions
 /intTestHomeDir
+
+# This is copied into the example project w/ each build
+example/gradle/wrapper/gradle-3.0-snapchat.zip
+
+example/build
+example/webapp-example/build
+example-with-no-fallback/webapp-example/build
+example-with-no-fallback/build
