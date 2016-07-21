@@ -24,7 +24,7 @@ ln -sf "$DISTRIBUTION" example-with-no-fallback/gradle/wrapper
 
 # Run a test that uses GCS and then falls back to artifactory
 cd example
-# ./gradlew build -S --info
+./gradlew build -S --info
 cd ..
 
 # Run a test that uses GCS and does not fall back to artifactory

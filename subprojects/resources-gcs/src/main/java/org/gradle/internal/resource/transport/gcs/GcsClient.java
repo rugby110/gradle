@@ -41,7 +41,6 @@ import java.util.regex.Pattern;
 public class GcsClient {
     private static final Logger LOGGER = LoggerFactory.getLogger(GcsClient.class);
     private static final Pattern FILENAME_PATTERN = Pattern.compile("[^\\/]+\\.*$");
-    private static final String BUCKET_NAME = "snapengine-jfraud";
 
     private final Storage googleGcsClient;
 
@@ -77,9 +76,11 @@ public class GcsClient {
             contentStream.setLength(contentLength);
 
             // TODO - set ACL here if necessary
-            StorageObject objectMetadata = new StorageObject().setName(destination.getPath());
+            String bucket = destination.getHost();
+            String path = destination.getPath().replaceAll("%2F", "/");
+            StorageObject objectMetadata = new StorageObject().setName(path);
 
-            Storage.Objects.Insert putRequest = googleGcsClient.objects().insert(BUCKET_NAME, objectMetadata, contentStream);
+            Storage.Objects.Insert putRequest = googleGcsClient.objects().insert(bucket, objectMetadata, contentStream);
 
             LOGGER.debug("Attempting to put resource:[{}] into gcs bucket [{}]", putRequest.getName(), putRequest.getBucket());
             putRequest.execute();
@@ -94,7 +95,8 @@ public class GcsClient {
         StorageObject storageObject = null;
 
         try {
-            Storage.Objects.Get getRequest = googleGcsClient.objects().get(BUCKET_NAME, uri.getPath());
+            String path = uri.getPath().replaceAll("%2F", "/");
+            Storage.Objects.Get getRequest = googleGcsClient.objects().get(uri.getHost(), path);
             storageObject = getRequest.execute();
         } catch (IOException e) {
             throw ResourceExceptions.getFailed(uri, e);
@@ -109,7 +111,8 @@ public class GcsClient {
         StorageObject storageObject = null;
 
         try {
-            Storage.Objects.Get getRequest = googleGcsClient.objects().get(BUCKET_NAME, uri.getPath());
+            String path = uri.getPath().replaceAll("%2F", "/");
+            Storage.Objects.Get getRequest = googleGcsClient.objects().get(uri.getHost(), path);
             storageObject = getRequest.execute();
         } catch (IOException e) {
             throw ResourceExceptions.getFailed(uri, e);
@@ -122,7 +125,7 @@ public class GcsClient {
         List<StorageObject> results = new ArrayList<StorageObject>();
 
         try {
-            Storage.Objects.List listRequest = googleGcsClient.objects().list(BUCKET_NAME);
+            Storage.Objects.List listRequest = googleGcsClient.objects().list(uri.getHost());
             Objects objects;
 
             // Iterate through each page of results, and add them to our results list.
