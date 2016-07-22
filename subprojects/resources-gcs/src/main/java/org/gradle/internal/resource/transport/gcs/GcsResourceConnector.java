@@ -18,6 +18,7 @@ package org.gradle.internal.resource.transport.gcs;
 
 import com.google.api.client.util.DateTime;
 import com.google.api.services.storage.model.StorageObject;
+import org.apache.commons.codec.binary.Base64;
 import org.gradle.internal.hash.HashValue;
 import org.gradle.internal.resource.local.LocalResource;
 import org.gradle.internal.resource.metadata.DefaultExternalResourceMetaData;
@@ -63,13 +64,13 @@ public class GcsResourceConnector implements ExternalResourceConnector {
         }
 
         DateTime lastModified = gcsObject.getUpdated();
-
+        byte[] hash = Base64.decodeBase64(gcsObject.getMd5Hash());
         return new DefaultExternalResourceMetaData(location,
             lastModified.getValue(),
             gcsObject.getSize().longValue(),
             gcsObject.getContentType(),
             gcsObject.getEtag(),
-            new HashValue(gcsObject.getMd5Hash()));
+            new HashValue(hash));
     }
 
     @Override
