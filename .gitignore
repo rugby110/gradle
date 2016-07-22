@@ -70,7 +70,6 @@ atlassian-ide-plugin.xml
 
 # This is copied into the example project w/ each build
 example/gradle/wrapper/gradle-3.0-snapchat.zip
-
 build
 example/build
 example/webapp-example/build

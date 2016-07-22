@@ -11,9 +11,11 @@ trap "test ! -e $OLDCONFIG && test -e $BAKCONFIG && mv $BAKCONFIG $OLDCONFIG" 0
 export DISTRIBUTION=$PWD/build/gradle-3.0-snapchat.zip
 [ -z "$GRADLE_USER_HOME" ] && GRADLE_USER_HOME=$HOME
 
+# Gradle cache is super aggressive, and shitty - we have to nuke it we'll pick up
+# the wrong artifacts
 rm -f "$DISTRIBUTION"
 rm -rf "$GRADLE_USER_HOME"/.gradle/wrapper/dists/*
-rm -rf buildSrc/.gradle
+find -name .gradle -exec rm -rf {} \; || true
 
 ./gradlew outputsZip -Pgradle_installPath=build/distribution
 ln -sf $PWD/build/distributions/gradle-3.0-snapshot-*bin.zip "$DISTRIBUTION"
@@ -33,7 +35,7 @@ cd ..
 # Run a test that publishes a well-known artifact
 cd example-with-publish
 rm -rf ./.gradle
-./gradlew build -S --info
+./gradlew build publish -S --info
 cd ..
 
 # Run a test that uses GCS and does not fall back to artifactory

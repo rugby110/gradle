@@ -25,6 +25,7 @@ import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.storage.Storage;
 import com.google.api.services.storage.model.Objects;
 import com.google.api.services.storage.model.StorageObject;
+import com.google.api.client.googleapis.json.GoogleJsonResponseException;
 import org.gradle.internal.resource.ResourceExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,8 +42,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class GcsClient {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GcsClient.class);
     private static final Pattern FILENAME_PATTERN = Pattern.compile("[^\\/]+\\.*$");
+    private static final StorageObject INITIAL_METADATA = new StorageObject();
 
     private final Storage googleGcsClient;
 
@@ -100,11 +103,18 @@ public class GcsClient {
         LOGGER.debug("Attempting to get gcs resource: [{}]", uri.toString());
 
         StorageObject storageObject = null;
+        String path = uri.getPath().replaceAll("%2F", "/");
 
         try {
-            String path = uri.getPath().replaceAll("%2F", "/");
             Storage.Objects.Get getRequest = googleGcsClient.objects().get(uri.getHost(), path);
             storageObject = getRequest.execute();
+        } catch (GoogleJsonResponseException ex) {
+            // To bootstrap the very first publication to Maven, we have to insert a maven-metadata.xml
+            // file. Gradle always tries to read-modify-write this file, so if its not there on the first
+            // publish we'll fail and never be able to publish
+            if (ex.getStatusCode() == 404 && path.endsWith("maven-metadata.xml")) {
+                return INITIAL_METADATA;
+            }
         } catch (IOException e) {
             throw ResourceExceptions.getFailed(uri, e);
         }
@@ -113,6 +123,12 @@ public class GcsClient {
     }
 
     public InputStream getResourceStream(StorageObject obj) throws IOException {
+        if (obj == INITIAL_METADATA) {
+            // To bootstrap the very first publication to Maven, we have to insert a maven-metadata.xml
+            // file. Gradle always tries to read-modify-write this file, so if its not there on the first
+            // publish we'll fail and never be able to publish
+            return new ByteArrayInputStream("<metadata/>".getBytes());
+        }
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         Storage.Objects.Get getObject = googleGcsClient.objects().get(obj.getBucket(), obj.getName());
         getObject.getMediaHttpDownloader().setDirectDownloadEnabled(false);
