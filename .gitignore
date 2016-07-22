@@ -78,5 +78,5 @@ example-with-no-fallback/another-webapp-example/build
 example-with-no-fallback/build
 example-with-no-fallback/gradle/wrapper/gradle-3.0-snapchat.zip
 example-with-publish/build
-example-with-publish/webapp-example/build
+example-with-publish/publish-webapp-example/build
 example-with-publish/gradle/wrapper/gradle-3.0-snapchat.zip

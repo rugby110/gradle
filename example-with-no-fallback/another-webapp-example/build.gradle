@@ -1,7 +1,7 @@
 apply plugin: 'war'
 
 dependencies {
-    runtime "com.snapchat:webapp-example:1.0"
+    runtime "com.snapchat:publish-webapp-example:1.0"
     compile "com.snapchat:snapengine-runtime:1.+"
     compile "com.snapchat:snapengine-inject:1.+"
     testCompile "com.snapchat:snapengine-testing:1.+"
