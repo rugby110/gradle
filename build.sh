@@ -13,6 +13,7 @@ export DISTRIBUTION=$PWD/build/gradle-3.0-snapchat.zip
 
 rm -f "$DISTRIBUTION"
 rm -rf "$GRADLE_USER_HOME"/.gradle/wrapper/dists/*
+rm -rf buildSrc/.gradle
 
 ./gradlew outputsZip -Pgradle_installPath=build/distribution
 ln -sf $PWD/build/distributions/gradle-3.0-snapshot-*bin.zip "$DISTRIBUTION"
@@ -25,16 +26,19 @@ ln -sf "$DISTRIBUTION" example-with-no-fallback/gradle/wrapper
 
 # Run a test that uses GCS and then falls back to artifactory
 cd example
+rm -rf ./.gradle
 ./gradlew build -S --info
 cd ..
 
 # Run a test that publishes a well-known artifact
 cd example-with-publish
+rm -rf ./.gradle
 ./gradlew build -S --info
 cd ..
 
 # Run a test that uses GCS and does not fall back to artifactory
 # (This test needs to be adjusted to do what the comment above says)
 cd example-with-no-fallback
-#./gradlew build -S --info
+rm -rf ./.gradle
+./gradlew build -S --info
 cd ..
