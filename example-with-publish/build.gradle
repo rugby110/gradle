@@ -1,0 +1,34 @@
+// Configure basic properties that every subproject requires
+allprojects {
+
+  group 'com.snapchat'
+  version '1.0'
+
+
+}
+
+
+// Configure plugins
+buildscript {
+    dependencies {
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:2.2.5'
+    }
+}
+
+
+// Enable support for IntelliJ
+apply plugin: 'idea'
+
+idea {
+
+    module {
+        inheritOutputDirs = false
+        outputDir = file("$buildDir/classes/main/")
+    }
+
+    project {
+        jdkName = '1.8'
+        languageLevel = '1.8'
+    }
+
+}

@@ -30,16 +30,18 @@ import java.net.URL;
 
 public class GcsResource implements ExternalResourceReadResponse {
 
+    private final GcsClient gcsClient;
     private final StorageObject gcsObject;
     private final URI uri;
 
-    public GcsResource(StorageObject gcsObject, URI uri) {
+    public GcsResource(GcsClient gcsClient, StorageObject gcsObject, URI uri) {
+        this.gcsClient = gcsClient;
         this.gcsObject = gcsObject;
         this.uri = uri;
     }
 
     public InputStream openStream() throws IOException {
-        return new URL(gcsObject.getSelfLink()).openStream();
+        return gcsClient.getResourceStream(gcsObject);
     }
 
     public URI getURI() {

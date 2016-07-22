@@ -29,6 +29,8 @@ import org.gradle.internal.resource.ResourceExceptions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -44,24 +46,13 @@ public class GcsClient {
 
     private final Storage googleGcsClient;
 
-    public GcsClient(Storage googleGcsClient) {
-        this.googleGcsClient = googleGcsClient;
-    }
-
     public GcsClient(GoogleCredential gcsCredentials) throws GeneralSecurityException, IOException {
         HttpTransport transport = GoogleNetHttpTransport.newTrustedTransport();
         JsonFactory jsonFactory = new JacksonFactory();
-
+        LOGGER.debug("Using Credentials: {} {}", gcsCredentials.getServiceAccountId(), gcsCredentials.getServiceAccountUser());
         Storage.Builder builder = new Storage.Builder(transport, jsonFactory, gcsCredentials);
-
+        builder.setApplicationName("gradle");
         googleGcsClient = builder.build();
-    }
-
-    private Storage createGoogleStorageClient(GoogleCredential credential) throws GeneralSecurityException, IOException {
-        // StorageBuilder with transport, new Jackson, credential
-        Storage.Builder builder = new Storage.Builder(createConnectionProperties(), new JacksonFactory(), credential);
-
-        return builder.build();
     }
 
     private HttpTransport createConnectionProperties() throws GeneralSecurityException, IOException {
@@ -119,6 +110,14 @@ public class GcsClient {
         }
 
         return storageObject;
+    }
+
+    public InputStream getResourceStream(StorageObject obj) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        Storage.Objects.Get getObject = googleGcsClient.objects().get(obj.getBucket(), obj.getName());
+        getObject.getMediaHttpDownloader().setDirectDownloadEnabled(false);
+        getObject.executeMediaAndDownloadTo(baos); 
+        return new ByteArrayInputStream(baos.toByteArray());
     }
 
     public List<String> list(URI uri) {

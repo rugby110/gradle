@@ -2,8 +2,6 @@
 allprojects {
 
   group 'com.snapchat'
-
-  // Configure a major version number, a minor version number is automatically added with each release
   version '1.0'
 
 }

@@ -52,7 +52,7 @@ public class GcsResourceConnector implements ExternalResourceConnector {
         if (gcsObject == null) {
             return null;
         }
-        return new GcsResource(gcsObject, location);
+        return new GcsResource(gcsClient, gcsObject, location);
     }
 
     public ExternalResourceMetaData getMetaData(URI location) {

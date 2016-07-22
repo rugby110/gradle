@@ -1,0 +1,19 @@
+apply plugin: 'maven-publish'
+apply plugin: 'war'
+
+dependencies {
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifact war
+        }
+    }
+    repositories {
+        maven {
+            url "gcs://maven-publish/releases"
+        }
+    }
+}

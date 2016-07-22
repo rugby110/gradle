@@ -73,6 +73,10 @@ example/gradle/wrapper/gradle-3.0-snapchat.zip
 
 example/build
 example/webapp-example/build
+example/gradle/wrapper/gradle-3.0-snapchat.zip
 example-with-no-fallback/webapp-example/build
 example-with-no-fallback/build
-example/build
+example-with-no-fallback/gradle/wrapper/gradle-3.0-snapchat.zip
+example-with-publish/build
+example-with-publish/webapp-example/build
+example-with-publish/gradle/wrapper/gradle-3.0-snapchat.zip

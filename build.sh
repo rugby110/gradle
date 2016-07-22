@@ -20,6 +20,7 @@ ln -sf $PWD/build/distributions/gradle-3.0-snapshot-*bin.zip "$DISTRIBUTION"
 # Build a project that consumes this artifact (from a local url)
 # to test before passing the build
 ln -sf "$DISTRIBUTION" example/gradle/wrapper
+ln -sf "$DISTRIBUTION" example-with-publish/gradle/wrapper
 ln -sf "$DISTRIBUTION" example-with-no-fallback/gradle/wrapper
 
 # Run a test that uses GCS and then falls back to artifactory
@@ -27,8 +28,13 @@ cd example
 ./gradlew build -S --info
 cd ..
 
+# Run a test that publishes a well-known artifact
+cd example-with-publish
+./gradlew build -S --info
+cd ..
+
 # Run a test that uses GCS and does not fall back to artifactory
+# (This test needs to be adjusted to do what the comment above says)
 cd example-with-no-fallback
-# TODO: uncomment to test plugin
-# ./gradlew build -S --info
+#./gradlew build -S --info
 cd ..
